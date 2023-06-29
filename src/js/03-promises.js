@@ -15,7 +15,7 @@ function submitForm (evt) {
     
     evt.preventDefault();
     evt.currentTarget.reset()
-    let delay = Number(inputValueData.delay);
+    const delay = Number(inputValueData.delay);
     const step = Number(inputValueData.step);
     const position = Number(inputValueData.amount);
     
@@ -35,7 +35,7 @@ function submitForm (evt) {
 
 function createPromise(i, delayScore) {
 
-    return promise = new Promise((res, rej) => { 
+    return new Promise((res, rej) => { 
         setTimeout(() => {
         const shouldResolve = Math.random() > 0.3;
         if (shouldResolve) {
