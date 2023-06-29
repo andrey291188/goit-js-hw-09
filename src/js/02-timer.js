@@ -1,4 +1,5 @@
 import flatpickr from "flatpickr";
+import Notiflix from 'notiflix';
 import "flatpickr/dist/flatpickr.min.css";
 
 flatpickr("#datetime-picker", {
@@ -32,7 +33,8 @@ function onInput () {
       
     } else {
         btnStart.disabled = true;
-        alert("Please choose a date in the future");
+        Notiflix.Notify.failure("Please choose a date in the future")
+        
     }
 };
 
