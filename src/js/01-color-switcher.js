@@ -6,6 +6,7 @@ function getRandomHexColor() {
   const btnStart = document.querySelector("[data-start]");
   const btnStop = document.querySelector("[data-stop]");
   const bodyPage = document.querySelector("body");
+  let intervalId = null;
 
   btnStart.addEventListener("click", onClickStart);
   btnStop.addEventListener("click", onClickStop);
@@ -14,31 +15,37 @@ function getRandomHexColor() {
   let activeColorBody = 0;
   
   function onClickStart(evt) {
-
+  
       if (activeColorBody) {
         return
       } else {
         activeColorBody += 1;
         btnStart.disabled = true;
         btnStop.disabled = false;
+          
       }
-
-      return intervalId = setInterval(() => {  
-        
+      
+      intervalId = setInterval(() => {  
          bodyPage.style.background = getRandomHexColor();
       }, 1000);
+    
   };
 
   function onClickStop (evt) {
 
     if (!activeColorBody) {
+
       return
     } else {
       activeColorBody -= 1;
       btnStart.disabled = false;
       btnStop.disabled = true;
+      
     }
     
     clearInterval(intervalId)
+    
   }
+
+  
 
