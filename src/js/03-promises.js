@@ -15,23 +15,25 @@ function submitForm (evt) {
     
     evt.preventDefault();
     evt.currentTarget.reset()
-    const delay = Number(inputValueData.delay);
+    let delay = Number(inputValueData.delay);
     const step = Number(inputValueData.step);
     const position = Number(inputValueData.amount);
     
-    for (let i = 1, delayScore = delay; i <= position; i += 1, delayScore += step) {
+    for (let i = 1; i <= position; i += 1) {
 
-        createPromise(i, delayScore)
-        .then(() => {
+        createPromise(i, delay)
+        .then(({ i, delayScore }) => {
             console.log(`✅ Fulfilled promise ${i} in ${delayScore}ms`);
             Notiflix.Notify.success(`✅ Fulfilled promise ${i} in ${delayScore}ms`);
         })
-        .catch(() => {
+        .catch(({ i, delayScore }) => {
             console.log(`❌ Rejected promise ${i} in ${delayScore}ms`);
             Notiflix.Notify.failure(`❌ Rejected promise ${i} in ${delayScore}ms`);
         });
+
+        delay += step;
     }
-}
+};
 
 function createPromise(i, delayScore) {
 
@@ -39,9 +41,9 @@ function createPromise(i, delayScore) {
         setTimeout(() => {
         const shouldResolve = Math.random() > 0.3;
         if (shouldResolve) {
-          res(i, delayScore);
+          res({i, delayScore});
         } else {
-          rej(i, delayScore);
+          rej({i, delayScore});
         }    
         }, delayScore);
     });
